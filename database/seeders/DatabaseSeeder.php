@@ -13,6 +13,8 @@ class DatabaseSeeder extends Seeder
             CitiesSeeder::class,
             LocationsSeeder::class,
             PropertiesSeeder::class,
+            PropertyInvestmentCampaignsSeeder::class,
+            PropertyInvestmentsSeeder::class,
         ]);
     }
 }

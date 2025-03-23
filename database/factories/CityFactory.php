@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Country;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -11,9 +12,13 @@ class CityFactory extends Factory
 {
     public function definition(): array
     {
+        $countryIso = fake()->countryCode();
+
         return [
             'name' => fake()->city(),
-            'country_iso' => CountryFactory::new()->iso(fake()->countryCode()),
+            'country_iso' => Country::query()->where('iso', $countryIso)->exists()
+                ? $countryIso
+                : CountryFactory::new()->iso($countryIso),
         ];
     }
 
