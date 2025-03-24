@@ -47,18 +47,26 @@ class PropertyInvestmentCampaign extends Model
         );
     }
 
+    protected function totalNumberOfShares(): Attribute
+    {
+        return Attribute::get(
+            fn () => $this->investments()->sum('shares')
+        );
+    }
+
     protected function raisedAmount(): Attribute
     {
         return Attribute::get(
             fn () => $this->value_per_share
                 ->multipliedBy(
-                    $this->investments()->sum('shares')
+                    $this->total_number_of_shares
                 )
         );
     }
 
     protected function percentageRaised(): Attribute
     {
+        // todo: add a cast for percentages
         $percentage = $this->raised_amount->toFloat() / $this->target_amount->toFloat();
 
         return Attribute::get(

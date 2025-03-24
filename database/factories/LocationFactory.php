@@ -12,8 +12,10 @@ class LocationFactory extends Factory
 {
     public function definition(): array
     {
+        $city = fake()->city();
+
         return [
-            'city' => CityFactory::new(),
+            'city' => City::query()->where('name', $city)->exists() ? $city : CityFactory::new()->name($city),
             'area' => fake()->streetName(),
         ];
     }

@@ -10,8 +10,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             CountriesSeeder::class,
-            CitiesSeeder::class,
-            LocationsSeeder::class,
             PropertiesSeeder::class,
             PropertyInvestmentCampaignsSeeder::class,
             PropertyInvestmentsSeeder::class,

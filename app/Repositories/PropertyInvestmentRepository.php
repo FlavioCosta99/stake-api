@@ -3,8 +3,10 @@
 namespace App\Repositories;
 
 use App\Data\CreatePropertyInvestmentData;
+use App\Models\Property;
 use App\Models\PropertyInvestment;
 use App\Traits\Resolvable;
+use Illuminate\Contracts\Database\Query\Builder;
 
 class PropertyInvestmentRepository
 {
@@ -20,5 +22,11 @@ class PropertyInvestmentRepository
         $propertyInvestment->save();
 
         return $propertyInvestment;
+    }
+
+    public function filterApprovedInvestorsForProperty(Property $property): Builder
+    {
+        return PropertyInvestment::query()
+            ->where('property_id', $property->id);
     }
 }

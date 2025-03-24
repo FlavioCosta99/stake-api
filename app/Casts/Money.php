@@ -54,18 +54,18 @@ final class Money implements CastsAttributes
         return $amount->toFloat() % $this->toFloat() === 0;
     }
 
-    public function multipliedBy(float|int|self $value): self
+    public function multipliedBy(float|int|self $value, RoundingMode $roundingMode = RoundingMode::UNNECESSARY, int $precision = 2): self
     {
         if ($value instanceof self) {
             $value = $value->toFloat();
         }
 
-        $result = $this->money->multipliedBy($value);
+        $result = $this->money->multipliedBy($value, $roundingMode);
 
-        return self::create($result->getAmount()->toFloat());
+        return self::create(amount: $result->getAmount()->toFloat(), precision: $precision, roundingMode: $roundingMode);
     }
 
-    public function dividedBy(float|int|self $value, RoundingMode $roundingMode = RoundingMode::UNNECESSARY): self
+    public function dividedBy(float|int|self $value, RoundingMode $roundingMode = RoundingMode::UNNECESSARY, int $precision = 2): self
     {
         if ($value instanceof self) {
             $value = $value->toFloat();
@@ -73,7 +73,7 @@ final class Money implements CastsAttributes
 
         $result = $this->money->dividedBy($value, $roundingMode);
 
-        return self::create($result->getAmount()->toFloat());
+        return self::create(amount: $result->getAmount()->toFloat(), precision: $precision, roundingMode: $roundingMode);
     }
 
     public function minus(float|int|self $value): self

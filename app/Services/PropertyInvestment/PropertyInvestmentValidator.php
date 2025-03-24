@@ -23,6 +23,5 @@ class PropertyInvestmentValidator
         if ($campaign->remaining_amount->minus($amount->toFloat())->money->isNegative()) {
             throw new InvalidInvestmentAmountException("Amount surpasses target_amount of {$campaign->target_amount->toString()}");
         }
-
     }
 }
